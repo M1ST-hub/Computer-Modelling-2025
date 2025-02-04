@@ -64,9 +64,12 @@ namespace StarterAssets
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
 
-	
+        public GameObject settings;
+		
+
+
 #if ENABLE_INPUT_SYSTEM
-		private PlayerInput _playerInput;
+        private PlayerInput _playerInput;
 #endif
 		private CharacterController _controller;
 		private StarterAssetsInputs _input;
@@ -115,7 +118,27 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
-		}
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                settings.SetActive(true);
+
+				_playerInput.DeactivateInput();
+
+                Cursor.lockState = CursorLockMode.None;
+            }
+
+
+
+			
+        }
+
+		public void Unpause()
+		{
+            _playerInput.ActivateInput();
+
+			Cursor.lockState = CursorLockMode.Locked;
+        }
 
 		private void LateUpdate()
 		{
